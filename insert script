@@ -15,3 +15,22 @@ BEGIN
     VALUES (ERROR_MESSAGE(), ERROR_SEVERITY(), ERROR_STATE());
   END CATCH;
 END;
+
+
+
+function ibanValide(iban) {
+  iban = iban.replace(/\s/g, ''); // Supprimer les espaces éventuels dans le code IBAN
+  if (iban.length != 28) {
+    return false; // Un code IBAN doit comporter 28 caractères
+  }
+  if (/^[A-Z]{2}\d{2}[A-Za-z0-9]{20}$/.test(iban)) {
+    let pays = iban.substr(0, 2).toUpperCase();
+    let iban_num = iban.substr(4) + iban.substr(0, 4);
+    iban_num = iban_num.split('').map(function(c) {
+      return (isNaN(c) ? (c.charCodeAt(0) - 55).toString() : c);
+    }).join('');
+    return parseInt(iban_num) % 97 == 1;
+  } else {
+    return false;
+  }
+}
