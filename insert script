@@ -1,0 +1,17 @@
+CREATE PROCEDURE insert_update_data AS
+BEGIN
+  BEGIN TRY
+    MERGE final_table AS target
+    USING #temp AS source
+    ON (target.col1 = source.col1 AND target.col2 = source.col2) -- Remplacez "col1" et "col2" par les noms de vos colonnes
+    WHEN MATCHED THEN
+      UPDATE SET target.col3 = source.col3, target.col4 = source.col4 -- Remplacez "col3" et "col4" par les noms de vos colonnes
+    WHEN NOT MATCHED THEN
+      INSERT (col1, col2, col3, col4) -- Remplacez "col1", "col2", "col3" et "col4" par les noms de vos colonnes
+      VALUES (source.col1, source.col2, source.col3, source.col4); -- Remplacez "col1", "col2", "col3" et "col4" par les noms de vos colonnes
+  END TRY
+  BEGIN CATCH
+    INSERT INTO error_log (error_message, error_severity, error_state)
+    VALUES (ERROR_MESSAGE(), ERROR_SEVERITY(), ERROR_STATE());
+  END CATCH;
+END;
