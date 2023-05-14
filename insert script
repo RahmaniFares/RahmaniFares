@@ -33,4 +33,45 @@ function ibanValide(iban) {
   } else {
     return false;
   }
-}
+define(['knockout', 'kendo'], function(ko, kendo) {
+    function EmployeesViewModel() {
+        var self = this;
+        
+        self.employees = ko.observableArray([
+            { id: 1, name: "Alice", age: 30, salary: 50000 },
+            { id: 2, name: "Bob", age: 40, salary: 60000 },
+            { id: 3, name: "Charlie", age: 25, salary: 45000 },
+            { id: 4, name: "Dave", age: 35, salary: 55000 }
+        ]);
+        
+        self.dataSource = new kendo.data.DataSource({
+            data: self.employees(),
+            schema: {
+                model: {
+                    id: "id",
+                    fields: {
+                        id: { type: "number" },
+                        name: { type: "string" },
+                        age: { type: "number" },
+                        salary: { type: "number" }
+                    }
+                }
+            }
+        });
+        
+        self.gridOptions = {
+            dataSource: self.dataSource,
+            columns: [
+                { field: "name", title: "Nom" },
+                { field: "age", title: "Âge" },
+                { field: "salary", title: "Salaire" }
+            ],
+            editable: "inline",
+            pageable: true,
+            sortable: true,
+            filterable: true
+        };
+    }
+    
+    return EmployeesViewModel;
+});
