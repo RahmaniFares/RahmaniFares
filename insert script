@@ -75,3 +75,77 @@ define(['knockout', 'kendo'], function(ko, kendo) {
     
     return EmployeesViewModel;
 });
+
+
+
+
+value: name" />
+      <div data-bind="kendoDropDownList: { data: $root.availableColors, value: color, valueField: 'value', textField: 'text', template: $root.colorTemplate }"></div>
+      <button data-bind="visible: $index() !== 0, click: $root.moveUp"><i class="fas fa-arrow-up"></i></button>
+      <button data-bind="visible: $index() !== $root.fruits().length - 1, click: $root.moveDown"><i class="fas fa-arrow-down"></i></button>
+      <button data-bind="click: $root.removeFruit"><i class="fas fa-trash"></i></button>
+    </div>
+  </li>
+</ul>
+<button data-bind="click: addFruit">Ajouter un fruit</button>
+JavaScript :
+
+javascript
+Copy code
+function Fruit(id, name, color) {
+  var self = this;
+  
+  self.id = ko.observable(id);
+  self.name = ko.observable(name);
+  self.color = ko.observable(color);
+}
+
+function FruitViewModel() {
+  var self = this;
+  
+  self.fruits = ko.observableArray([
+    new Fruit(1, 'Pomme', 'Rouge'),
+    new Fruit(2, 'Banane', 'Jaune'),
+    new Fruit(3, 'Orange', 'Orange')
+  ]);
+  
+  self.availableColors = [
+    { value: 'Rouge', text: 'Rouge' },
+    { value: 'Vert', text: 'Vert' },
+    { value: 'Bleu', text: 'Bleu' },
+    { value: 'Jaune', text: 'Jaune' }
+  ];
+  
+  self.colorTemplate = function(dataItem) {
+    return '<div style="background-color: ' + dataItem.value + '; width: 100%; height: 20px;"></div>';
+  };
+  
+  self.addFruit = function() {
+    var newFruit = new Fruit(0, '', '');
+    self.fruits.push(newFruit);
+  };
+  
+  self.removeFruit = function(fruit) {
+    self.fruits.remove(fruit);
+  };
+  
+  self.moveUp = function(fruit) {
+    var currentIndex = self.fruits.indexOf(fruit);
+    if (currentIndex > 0) {
+      var previousIndex = currentIndex - 1;
+      self.fruits.splice(previousIndex, 2, fruit, self.fruits()[previousIndex]);
+    }
+  };
+  
+  self.moveDown = function(fruit) {
+    var currentIndex = self.fruits.indexOf(fruit);
+    if (currentIndex < self.fruits().length - 1) {
+      var nextIndex = currentIndex + 1;
+      self.fruits.splice(currentIndex, 2, self.fruits()[nextIndex], fruit);
+    }
+  };
+}
+
+ko.applyBindings(new FruitViewModel());
+
+
