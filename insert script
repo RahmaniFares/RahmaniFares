@@ -168,3 +168,14 @@ ko.applyBindings(new FruitViewModel());
           "notificationErrorDeleteTitle": "erreur lors de la suppression",
           "notificationErrorDeleteText": "une erreur est survenu lors de la suppression "
         }
+"thirdPartySearch": {
+          "new": "nouveau",
+          "list": "listes",
+          "name": "nom",
+          "firstName": "prénom",
+          "birthDate": "date de naissance ",
+          "search": "rechercher",
+          "reset": "réinitialiser",
+          "validate": "valider",
+          "hideshowinformation": "afficher /masquer information"
+        }
