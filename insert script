@@ -148,4 +148,23 @@ function FruitViewModel() {
 
 ko.applyBindings(new FruitViewModel());
 
-
+"signersList": {
+          "signers": "signataires*",
+          "fullName": "Nom complet*",
+          "login": "login*",
+          "email": "email*",
+          "phone": "téléphone*",
+          "moveup": "monté",
+          "movedown": "desendre",
+          "deletesigner": "supprimer signataire",
+          "deletePopup": {
+            "titleDeleteSigner": "confirmation suppression signataire",
+            "textDeleteSigner": "vous confirmer vouloir supprimer ce signataire",
+            "validateDeleteSigner": "valider",
+            "cancelDeleteSigner": "annuler"
+          },
+          "notificationSuccessDeleteTitle": "suppresison avec success",
+          "notificationSucessDeleteText": "La suppression du signataire a été effectuer avec success",
+          "notificationErrorDeleteTitle": "erreur lors de la suppression",
+          "notificationErrorDeleteText": "une erreur est survenu lors de la suppression "
+        }
