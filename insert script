@@ -179,3 +179,20 @@ ko.applyBindings(new FruitViewModel());
           "validate": "valider",
           "hideshowinformation": "afficher /masquer information"
         }
+
+
+var computed = ko.computed(function () {
+    var derniereLongueur = computed.derniereLongueur || 0;
+    var nouvelleLongueur = monObservableArray().length;
+
+    if (nouvelleLongueur > derniereLongueur) {
+        var nouveauxElements = monObservableArray.slice(derniereLongueur);
+        console.log("Nouveaux éléments ajoutés :", nouveauxElements);
+        // Faites quelque chose avec les nouveaux éléments ici
+
+        computed.derniereLongueur = nouvelleLongueur;
+    }
+});
+
+// Ajoutez un nouvel élément à l'observableArray
+monObservableArray.push("Nouvel élément");
